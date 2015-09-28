@@ -1,0 +1,72 @@
+/* TYPOGRAPHY */
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-family: $font-sans;
+    font-weight: 300;
+    font-size: $font-size;
+    line-height: $line-height;
+    color: $color-fg;
+}
+
+small {
+    display: block;
+
+    font-size: $font-size-small;
+    line-height: $line-height-small;
+
+    &.normal {
+        font-size: inherit;
+        line-height: inherit;
+    }
+}
+
+a {
+    color: $color-link;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: $color-link-hover;
+        text-decoration: underline;
+    }
+
+    &:active {
+        color: $color-link-active;
+    }
+}
+
+h1,
+h2,
+h3 {
+    font-family: $font-serif;
+}
+
+h1 {
+    font-size: $line-height;
+    line-height: $line-height;
+
+    @media (min-width: $media-l) {
+        font-size: $line-height * 1.5;
+        line-height: $line-height * 1.5;
+    }
+}
+
+h2 {
+    font-size: $font-size * 1.375;
+
+    @media (min-width: $media-l) {
+        font-size: $font-size * 1.865;
+    }
+}
+
+h3 {
+    font-size: $font-size;
+
+    @media (min-width: $media-l) {
+        font-size: $font-size * 1.375;
+    }
+}

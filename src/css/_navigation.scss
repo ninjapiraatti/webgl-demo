@@ -1,0 +1,135 @@
+/* NAVIGATION THEME */
+
+
+
+.nav {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    .nav {
+        padding-left: $nav-bar-mobile-menu-item-indent;
+    }
+
+    &--inline > li {
+        display: inline-block;
+    }
+}
+
+.dropdown-toggle {
+    &:after {
+        margin-left: 0.3em;
+    }
+}
+
+.responsive-nav {
+    .nav-link {
+        color: inherit;
+    }
+}
+
+.nav-link {
+    display: block;
+    padding: $nav-bar-dropdown-item-padding-vertical $nav-bar-dropdown-item-padding-horizontal;
+    overflow: hidden;
+
+    color: $color-link;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    outline: 0;
+
+    &:hover,
+    &:focus {
+        color: $color-link-hover;
+        text-decoration: none;
+    }
+
+    &:active {
+        color: $color-link-active;
+    }
+}
+
+
+
+// Mobile navigation
+
+@media (max-width: $media-nav-breakpoint - 1) {
+
+    .responsive-nav-viewport {
+        @if ($nav-bar-fixed) {
+            max-height: calc(100vh - #{$nav-bar-height});
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                width: 0 !important
+            }
+        }
+
+        margin: 0 (-$nav-bar-dropdown-item-padding-horizontal);
+    }
+
+    .responsive-nav-toggle {
+        position: absolute;
+        top: ($nav-bar-height - 2.8rem) / 2;
+        right: $line-height / 4;
+
+        border: 0;
+        padding: 0;
+        margin: 0;
+
+        background: transparent;
+        font: inherit;
+        outline: 0;
+    }
+
+}
+
+
+
+// Desktop navigation
+
+@media (min-width: $media-nav-breakpoint) {
+
+    .nav.dropdown {
+        padding-left: 0;
+    }
+
+    .dropdown {
+        max-width: 20em;
+        min-width: 10em;
+
+        background: $color-bg;
+        box-shadow: 0 3px 6px rgba(#000, 0.5);
+
+        .nav-link {
+            padding: $nav-bar-dropdown-item-padding-vertical $nav-bar-dropdown-item-padding-horizontal;
+        }
+
+        .dropdown-toggle {
+            padding-right: max($line-height, $nav-bar-nav-item-padding-horizontal);
+        }
+    }
+
+    .nav-link {
+        padding: min($nav-bar-nav-item-padding-vertical, ($nav-bar-height - $line-height) / 2) $nav-bar-nav-item-padding-horizontal;
+
+        &.is-open,
+        &.is-opening {
+            color: $color-bg;
+            background: $color-link;
+        }
+
+        &:hover,
+        &:focus {
+            color: $color-bg;
+            background: $color-link-hover;
+        }
+
+        &:active {
+            color: $color-bg;
+            background: $color-link-active;
+        }
+    }
+
+}

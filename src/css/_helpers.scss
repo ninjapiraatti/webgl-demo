@@ -1,0 +1,25 @@
+/* HELPERS  */
+
+.db {
+    display: block;
+}
+
+.mt-1 {
+    margin-top: -$line-height;
+}
+
+.mb-1 {
+    margin-bottom: -$line-height;
+}
+
+.gm-style {
+    [style^="cursor: default"] > div:first-child {
+        & > div:first-child {
+            display: none;
+        }
+
+        & > div:nth-child(3) {
+            transform: scaleY(0.5);
+        }
+    }
+}

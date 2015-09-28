@@ -1,0 +1,16 @@
+/* LISTS  */
+
+
+ul,
+ol {
+    list-style-position: inside;
+
+    ul,
+    ol {
+        margin-left: $line-height;
+    }
+}
+
+ul {
+    list-style: disc inside;
+}

@@ -1,0 +1,43 @@
+/* FOOTER  */
+
+.main-footer {
+    @if (not $background-image) {
+        box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.125);
+    }
+
+    &__content {
+        @extend .wrapper;
+
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: $line-height / 2;
+        padding-bottom: $line-height / 2;
+
+        line-height: 1;
+
+        @if ($background-image) {
+            @if ($background-image-solid-footer) {
+                background: $color-bg;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+
+                @media screen and (min-width: $wrapper-width + $wrapper-padding * 2) {
+                    margin-bottom: $line-height;
+                    border-radius: 0 0 2px 2px;
+                }
+            } @else {
+                color: $color-bg;
+                text-shadow: 0 1px 3px rgba(#000, 1);
+
+                a:not(:hover) {
+                    color: $color-bg;
+                }
+            }
+        }
+    }
+
+    small {
+        margin: 0;
+    }
+}

@@ -1,0 +1,50 @@
+/* TABLES  */
+
+table {
+    width: 100%;
+
+    text-align: left;
+    line-height: 1;
+
+    th,
+    td {
+        padding: $table-cell-padding;
+    }
+}
+
+.table {
+
+    th {
+        background: $color-link;
+        color: $color-bg;
+        font-weight: bold;
+    }
+
+    td {
+
+    }
+
+    &--border {
+        box-shadow: inset 0 0 1px 1px $color-bg-shaded;
+    }
+
+    &--zebra {
+        tbody tr:nth-child(even) {
+            background: $color-bg-shaded;
+        }
+    }
+
+    &--horizontal,
+    &--grid {
+        tbody tr {
+            border-top: 1px solid $color-bg-shaded;
+        }
+    }
+
+    &--vertical,
+    &--grid {
+        tbody td:not(:last-child) {
+            border-right: 1px solid $color-bg-shaded;
+        }
+    }
+}
