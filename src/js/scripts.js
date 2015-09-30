@@ -34,11 +34,9 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 		var smoothX = 0;
 		var smoothY = 0;
 
-		var ukot = document.querySelector('.daftpunk-image');
-
         scene = new THREE.Scene();
         //camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 5 );
-        camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 0.1, 5 );
+        camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 0.1, 15 );
         //camera.position.z = 3200;
         renderer = new THREE.WebGLRenderer( {alpha: true });
         renderer.setSize( window.innerWidth, window.innerHeight );
@@ -48,7 +46,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
         //var boxmaterial = new THREE.MeshLambertMaterial( { color: 0x00a0ff, envMap: textureCube } );
 
         var loader = new THREE.JSONLoader();
-        loader.load( "/site/assets/js/planeetta3.js", function(geometry_wire, materials){
+        loader.load( "dirigible06.js", function(geometry_wire, materials){
             //var material = new THREE.MeshPhongMaterial( { color: 0xff9600, specular: 0xffff00, shininess: 5, shading: THREE.FlatShading } );
             //var material = new THREE.MeshBasicMaterial({color: 0x00a0ff, wireframe: true});
             //mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( materials ) );
@@ -56,37 +54,40 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
             mesh_solid = new THREE.Mesh( geometry_wire, new THREE.MeshFaceMaterial( materials ) );
             mesh_solid.material.materials[ 0 ].shading = THREE.FlatShading;
             mesh_solid.material.materials[ 1 ].shading = THREE.FlatShading;
-						mesh_solid.material.materials[ 2 ].shading = THREE.FlatShading;
+						mesh_solid.doubleSided = true;
+						console.log(materials);
             //mesh = new THREE.Mesh(geometry, material);
             scene.add(mesh_solid);
-            mesh_solid.traverse( function(child) {
-            //console.log(child);
-})
+						for ( var i = 0; i < materials.length; i ++ )
+            {
+             var material = materials[i];
+                material.side = THREE.DoubleSide;
+            }
         });
 
-		var originalCameraX = 1.4;
-		var originalCameraY = 0;
-		var originalCameraZ = 4;
+		var originalCameraX = 0;
+		var originalCameraY = 1;
+		var originalCameraZ = 8;
 
 		camera.position.x = originalCameraX;
 		camera.position.y = originalCameraY;
 		camera.position.z = originalCameraZ;
 
-        var light = new THREE.AmbientLight( 0x777777 ); // soft white light
-        light1 = new THREE.PointLight( 0xeeeeee, 1.2, 90 );
+        var light = new THREE.AmbientLight( 0xeeeeee ); // soft white light
+        light1 = new THREE.PointLight( 0xffffff, 0.5, 10, 0 );
         //light2 = new THREE.PointLight( 0xffffff, 2, 50 );
         //light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
         scene.add( light1 );
-        light1.position.x = 1.3;
-        light1.position.z = 0.5;
-				light1.position.y = 0.3;
+        light1.position.x = 0;
+        light1.position.z = 5;
+				light1.position.y = 0;
 
         //scene.add( light2 );
         scene.add( light );
 
         //Particles
         var particles;
-        scene.fog = new THREE.FogExp2( 0x000000, 0.001 );
+        scene.fog = new THREE.FogExp2( 0x000000, 0.01 );
 
 				geometry = new THREE.Geometry();
 
@@ -166,11 +167,6 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
         light2.position.y = Math.cos( time * 0.5 ) * 30;
         light2.position.z = Math.cos( time * 0.7 ) * 20;
         */
-
-		var transformString = 'perspective(600px) translateX(' + mouseXPercentage * 5 + '%) rotateY(' + mouseXPercentage * 1.5 + 'deg) translateY(' + mouseYPercentage * 0.25 + '%) rotateX(' + -mouseYPercentage * 0.25 + 'deg)';
-		ukot.style.webkitTransform = transformString;
-		ukot.style.msTransform = transformString;
-		ukot.style.transform = transformString;
 
 		camera.position.x = originalCameraX - mouseXPercentage * 0.03;
 		camera.position.y = originalCameraY - mouseYPercentage * 0.01;

@@ -7,7 +7,7 @@ var concat          = require('gulp-concat');
 var uglify          = require('gulp-uglify');
 var sass            = require('gulp-sass');
 var autoprefixer    = require('gulp-autoprefixer');
-
+var connect = require('gulp-connect');
 var outputFolder    = "build";
 
 gulp.task('clean', function() {
@@ -54,6 +54,10 @@ gulp.task('watch', function() {
     gulp.watch(['src/**/*', '!src/**/*.js', '!src/**/*.css', '!src/**/*.scss'], ['assets']);
     gulp.watch('src/css/**/*.scss', ['css']);
     gulp.watch('src/js/**/*.js', ['lint', 'js']);
+});
+
+gulp.task('connect', function() {
+  connect.server();
 });
 
 gulp.task('default', ['assets', 'css', 'lint', 'js', 'watch']);

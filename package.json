@@ -1,5 +1,5 @@
 {
-  "name": "oluthaku",
+  "name": "webgl-demo",
   "version": "0.0.1",
   "description": "This document is in Markdown. An HTML formatted version of this document  can be read at: http://processwire.com/download/readme",
   "main": "index.js",
@@ -8,6 +8,7 @@
     "gulp-autoprefixer": "^3.0.1",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.2.0",
     "gulp-jshint": "^1.11.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
@@ -19,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ninjapiraatti/oluthaku.git"
+    "url": "git+https://github.com/ninjapiraatti/webgl-demo.git"
   },
   "author": "Planetoidi Oy",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ninjapiraatti/oluthaku/issues"
+    "url": "https://github.com/ninjapiraatti/webgl-demo/issues"
   },
-  "homepage": "https://github.com/ninjapiraatti/oluthaku#readme"
+  "homepage": "https://github.com/ninjapiraatti/webgl-demo#readme"
 }
