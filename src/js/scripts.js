@@ -15,15 +15,15 @@ try { context = canvas.getContext(names[i]); }
 catch(e) {}
 if (context) { break; }
 }
-return context != null;
-};
+return context !== null;
+}
 
 if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (viewport.width >= 1000)) {
     var script = document.createElement("script");
     script.onload = function(){
 
 
-        var camera, scene, mesh_wire, mesh_solid;
+        var camera, scene, mesh_wire, mesh_solid, potkuri;
         var mouseX = 0, mouseY = 0;
 
 		var windowHalfX = window.innerWidth / 2;
@@ -36,10 +36,11 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 
         scene = new THREE.Scene();
         //camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 5 );
-        camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 0.1, 15 );
+        camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 0.1, 35 );
         //camera.position.z = 3200;
         renderer = new THREE.WebGLRenderer( {alpha: true });
         renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.shadowMapEnabled = true;
         document.body.appendChild( renderer.domElement );
         document.querySelector(".webgl").appendChild( renderer.domElement );
 
@@ -55,6 +56,8 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
             mesh_solid.material.materials[ 0 ].shading = THREE.FlatShading;
             mesh_solid.material.materials[ 1 ].shading = THREE.FlatShading;
 						mesh_solid.doubleSided = true;
+						mesh_solid.castShadow = true;
+						mesh_solid.receiveShadow = true;
 						console.log(materials);
             //mesh = new THREE.Mesh(geometry, material);
             scene.add(mesh_solid);
@@ -64,23 +67,48 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
                 material.side = THREE.DoubleSide;
             }
         });
+				loader.load( "dirigible_potkuri.js", function(potkuri_geometry, materials){
+            //var material = new THREE.MeshPhongMaterial( { color: 0xff9600, specular: 0xffff00, shininess: 5, shading: THREE.FlatShading } );
+            //var material = new THREE.MeshBasicMaterial({color: 0x00a0ff, wireframe: true});
+            //mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( materials ) );
+            //mesh_solid = new THREE.Mesh( geometry_wire, materials );
+            potkuri = new THREE.Mesh( potkuri_geometry, new THREE.MeshFaceMaterial( materials ) );
+            potkuri.material.materials[ 0 ].shading = THREE.FlatShading;
+            potkuri.material.materials[ 1 ].shading = THREE.FlatShading;
+						potkuri.doubleSided = true;
+						potkuri.castShadow = true;
+						potkuri.receiveShadow = true;
+						console.log(materials);
+            //mesh = new THREE.Mesh(geometry, material);
+            scene.add(potkuri);
+						for ( var i = 0; i < materials.length; i ++ )
+            {
+             var material = materials[i];
+                material.side = THREE.DoubleSide;
+            }
+        });
 
 		var originalCameraX = 0;
-		var originalCameraY = 1;
-		var originalCameraZ = 8;
+		var originalCameraY = 1.5;
+		var originalCameraZ = 20;
 
 		camera.position.x = originalCameraX;
 		camera.position.y = originalCameraY;
 		camera.position.z = originalCameraZ;
 
-        var light = new THREE.AmbientLight( 0xeeeeee ); // soft white light
-        light1 = new THREE.PointLight( 0xffffff, 0.5, 10, 0 );
+        var light = new THREE.AmbientLight( 0x777777 ); // soft white light
+				var sphere = new THREE.SphereGeometry( 0.01, 1, 1 );
+        light1 = new THREE.PointLight( 0xffffff, 2, 3, 2 );
+				light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ) );
+				light1.castShadow = true;
+				light1.shadowDarkness = 0.5;
+				light1.shadowCameraVisible = true;
         //light2 = new THREE.PointLight( 0xffffff, 2, 50 );
         //light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
         scene.add( light1 );
         light1.position.x = 0;
-        light1.position.z = 5;
-				light1.position.y = 0;
+        light1.position.z = 0;
+				light1.position.y = 1.4;
 
         //scene.add( light2 );
         scene.add( light );
@@ -188,7 +216,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
         renderer.render(scene, camera);
         }
         render();
-    }
+    };
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js";
     document.body.appendChild(script);
 }
