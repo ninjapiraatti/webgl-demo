@@ -144,6 +144,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 			function addObjects(){
 			group = new THREE.Group();//create an empty container
 			group.add( mesh_solid );//add a mesh with geometry to it
+			//potkuri.applyMatrix( new THREE.Matrix4().makeTranslation( 0, -0.2, 0 ) );
 			group.add( potkuri );//add a mesh with geometry to it
 			scene.add( group );//when done, add the group to the scene
 			}
@@ -210,12 +211,12 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 	        //particles.rotation.y += ( mouseY * .0005);
 
 	        if ( group !== undefined ) {
-				group.rotation.y = time * 0.6;
+				group.rotation.y = time * 0.3;
 				group.rotation.x = mouseYPercentage * 0.01;
 	        }
 
 			if ( potkuri !== undefined ) {
-				potkuri.rotation.z = time * 5.6;
+				potkuri.rotation.z = time * 15.6;
 	        }
 
 	        requestAnimationFrame( render );
