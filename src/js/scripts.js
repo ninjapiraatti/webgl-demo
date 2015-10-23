@@ -34,113 +34,114 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 		var smoothX = 0;
 		var smoothY = 0;
 
-        scene = new THREE.Scene();
-        //camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 5 );
-        camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 0.1, 35 );
-        //camera.position.z = 3200;
-        renderer = new THREE.WebGLRenderer( {alpha: true });
-        renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.shadowMapEnabled = true;
-        document.body.appendChild( renderer.domElement );
-        document.querySelector(".webgl").appendChild( renderer.domElement );
-
-        //var boxmaterial = new THREE.MeshLambertMaterial( { color: 0x00a0ff, envMap: textureCube } );
-
-        var loader = new THREE.JSONLoader();
-        loader.load( "dirigible06.js", function(geometry_wire, materials){
-            //var material = new THREE.MeshPhongMaterial( { color: 0xff9600, specular: 0xffff00, shininess: 5, shading: THREE.FlatShading } );
-            //var material = new THREE.MeshBasicMaterial({color: 0x00a0ff, wireframe: true});
-            //mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( materials ) );
-            //mesh_solid = new THREE.Mesh( geometry_wire, materials );
-            mesh_solid = new THREE.Mesh( geometry_wire, new THREE.MeshFaceMaterial( materials ) );
-            mesh_solid.material.materials[ 0 ].shading = THREE.FlatShading;
-            mesh_solid.material.materials[ 1 ].shading = THREE.FlatShading;
-						mesh_solid.doubleSided = true;
-						mesh_solid.castShadow = true;
-						mesh_solid.receiveShadow = true;
-						console.log(materials);
-            //mesh = new THREE.Mesh(geometry, material);
-            scene.add(mesh_solid);
-						for ( var i = 0; i < materials.length; i ++ )
-            {
-             var material = materials[i];
-                material.side = THREE.DoubleSide;
-            }
-        });
-				loader.load( "dirigible_potkuri.js", function(potkuri_geometry, materials){
-            //var material = new THREE.MeshPhongMaterial( { color: 0xff9600, specular: 0xffff00, shininess: 5, shading: THREE.FlatShading } );
-            //var material = new THREE.MeshBasicMaterial({color: 0x00a0ff, wireframe: true});
-            //mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( materials ) );
-            //mesh_solid = new THREE.Mesh( geometry_wire, materials );
-            potkuri = new THREE.Mesh( potkuri_geometry, new THREE.MeshFaceMaterial( materials ) );
-            potkuri.material.materials[ 0 ].shading = THREE.FlatShading;
-            potkuri.material.materials[ 1 ].shading = THREE.FlatShading;
-						potkuri.doubleSided = true;
-						potkuri.castShadow = true;
-						potkuri.receiveShadow = true;
-						console.log(materials);
-            //mesh = new THREE.Mesh(geometry, material);
-            scene.add(potkuri);
-			for ( var i = 0; i < materials.length; i ++ )
-            {
-             var material = materials[i];
-                material.side = THREE.DoubleSide;
-            }
-        });
-
 		var originalCameraX = 0;
 		var originalCameraY = 1.5;
 		var originalCameraZ = 20;
 
-		camera.position.x = originalCameraX;
-		camera.position.y = originalCameraY;
-		camera.position.z = originalCameraZ;
+		function init(){
+	        scene = new THREE.Scene();
+	        //camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 5 );
+	        camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 0.1, 35 );
+	        //camera.position.z = 3200;
+	        renderer = new THREE.WebGLRenderer( {alpha: true });
+	        renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.shadowMapEnabled = true;
+	        document.body.appendChild( renderer.domElement );
+	        document.querySelector(".webgl").appendChild( renderer.domElement );
 
-        var light = new THREE.AmbientLight( 0xdddddd ); // soft white light
-				var sphere = new THREE.SphereGeometry( 0.01, 1, 1 );
-        light1 = new THREE.PointLight( 0xffffff, 2, 3, 2 );
-				light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ) );
-				//light1.castShadow = true;
-				//light1.shadowDarkness = 0.5;
-				//light1.shadowCameraVisible = true;
-        //light2 = new THREE.PointLight( 0xffffff, 2, 50 );
-        //light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
-        scene.add( light1 );
-        light1.position.x = 0;
-        light1.position.z = 0;
-				light1.position.y = 1.4;
+	        //var boxmaterial = new THREE.MeshLambertMaterial( { color: 0x00a0ff, envMap: textureCube } );
 
-        //scene.add( light2 );
-        scene.add( light );
+	        var loader = new THREE.JSONLoader();
+	        loader.load( "dirigible06.js", function(geometry_wire, materials){
+	            //var material = new THREE.MeshPhongMaterial( { color: 0xff9600, specular: 0xffff00, shininess: 5, shading: THREE.FlatShading } );
+	            //var material = new THREE.MeshBasicMaterial({color: 0x00a0ff, wireframe: true});
+	            //mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( materials ) );
+	            //mesh_solid = new THREE.Mesh( geometry_wire, materials );
+	            mesh_solid = new THREE.Mesh( geometry_wire, new THREE.MeshFaceMaterial( materials ) );
+	            mesh_solid.material.materials[ 0 ].shading = THREE.FlatShading;
+	            mesh_solid.material.materials[ 1 ].shading = THREE.FlatShading;
+							mesh_solid.doubleSided = true;
+							mesh_solid.castShadow = true;
+							mesh_solid.receiveShadow = true;
+	            //mesh = new THREE.Mesh(geometry, material);
+	            scene.add(mesh_solid);
+				for ( var i = 0; i < materials.length; i ++ )
+	            {
+	             var material = materials[i];
+	                material.side = THREE.DoubleSide;
+	            }
+	        });
+			loader.load( "dirigible_potkuri.js", function(potkuri_geometry, materials){
+	            //var material = new THREE.MeshPhongMaterial( { color: 0xff9600, specular: 0xffff00, shininess: 5, shading: THREE.FlatShading } );
+	            //var material = new THREE.MeshBasicMaterial({color: 0x00a0ff, wireframe: true});
+	            //mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( materials ) );
+	            //mesh_solid = new THREE.Mesh( geometry_wire, materials );
+	            potkuri = new THREE.Mesh( potkuri_geometry, new THREE.MeshFaceMaterial( materials ) );
+	            potkuri.material.materials[ 0 ].shading = THREE.FlatShading;
+	            potkuri.material.materials[ 1 ].shading = THREE.FlatShading;
+							potkuri.doubleSided = true;
+							potkuri.castShadow = true;
+							potkuri.receiveShadow = true;
+	            //mesh = new THREE.Mesh(geometry, material);
+	            scene.add(potkuri);
+				for ( var i = 0; i < materials.length; i ++ )
+	            {
+	             var material = materials[i];
+	                material.side = THREE.DoubleSide;
+	            }
+	        });
 
-        //Particles
-        var particles;
-        scene.fog = new THREE.FogExp2( 0x000000, 0.01 );
+			camera.position.x = originalCameraX;
+			camera.position.y = originalCameraY;
+			camera.position.z = originalCameraZ;
 
-				geometry = new THREE.Geometry();
+	        var light = new THREE.AmbientLight( 0xdddddd ); // soft white light
+			var sphere = new THREE.SphereGeometry( 0.01, 1, 1 );
+	        light1 = new THREE.PointLight( 0xffffff, 2, 3, 2 );
+			light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ) );
+			//light1.castShadow = true;
+			//light1.shadowDarkness = 0.5;
+			//light1.shadowCameraVisible = true;
+	        //light2 = new THREE.PointLight( 0xffffff, 2, 50 );
+	        //light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
+	        scene.add( light1 );
+	        light1.position.x = 0;
+	        light1.position.z = 0;
+			light1.position.y = 1.4;
 
-				sprite = THREE.ImageUtils.loadTexture( "/site/assets/images/disc.png" );
+	        //scene.add( light2 );
+	        scene.add( light );
 
-				for ( i = 0; i < 1000; i ++ ) {
+	        //Particles
+	        var particles;
+	        scene.fog = new THREE.FogExp2( 0x000000, 0.01 );
 
-					var vertex = new THREE.Vector3();
-					vertex.x = (2 * Math.random() - 1) * 3;
-					vertex.y = (2 * Math.random() - 1);
-					vertex.z = (4 * Math.random() - 2) - 1.5;
+			geometry = new THREE.Geometry();
 
-					geometry.vertices.push( vertex );
+			sprite = THREE.ImageUtils.loadTexture( "/site/assets/images/disc.png" );
 
-				}
+			for ( i = 0; i < 1000; i ++ ) {
 
-				material = new THREE.PointCloudMaterial( { size: 0.02, sizeAttenuation: true, map: sprite, alphaTest: 0.5, transparent: true } );
-				material.color.setRGB( 0.8, 0.8, 0.8 );
+				var vertex = new THREE.Vector3();
+				vertex.x = (2 * Math.random() - 1) * 3;
+				vertex.y = (2 * Math.random() - 1);
+				vertex.z = (4 * Math.random() - 2) - 1.5;
 
-				particles = new THREE.PointCloud( geometry, material );
-				scene.add( particles );
+				geometry.vertices.push( vertex );
 
-        document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-				document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-				document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+			}
+
+			material = new THREE.PointCloudMaterial( { size: 0.02, sizeAttenuation: true, map: sprite, alphaTest: 0.5, transparent: true } );
+			material.color.setRGB( 0.8, 0.8, 0.8 );
+
+			particles = new THREE.PointCloud( geometry, material );
+			scene.add( particles );
+
+	        document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+			document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+			document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+
+		}
 
         function onDocumentMouseMove( event ) {
 
@@ -175,53 +176,45 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
           }
         }
 
-        function animate() {
-
-				requestAnimationFrame( animate );
-				render();
-        }
-
         function render() {
 
-        //mesh.rotation.z += mouseXr / 80000;
+	        //mesh.rotation.z += mouseXr / 80000;
 
-        var time = Date.now() * 0.0005;
-        /*
-        light1.position.x = Math.sin( time * 0.7 ) * 20;
-        light1.position.y = Math.cos( time * 0.5 ) * 30;
-        light1.position.z = Math.cos( time * 0.3 ) * 20;
+	        var time = Date.now() * 0.0005;
+	        /*
+	        light1.position.x = Math.sin( time * 0.7 ) * 20;
+	        light1.position.y = Math.cos( time * 0.5 ) * 30;
+	        light1.position.z = Math.cos( time * 0.3 ) * 20;
 
-        light2.position.x = Math.sin( time * 0.3 ) * 20;
-        light2.position.y = Math.cos( time * 0.5 ) * 30;
-        light2.position.z = Math.cos( time * 0.7 ) * 20;
-        */
+	        light2.position.x = Math.sin( time * 0.3 ) * 20;
+	        light2.position.y = Math.cos( time * 0.5 ) * 30;
+	        light2.position.z = Math.cos( time * 0.7 ) * 20;
+	        */
 
-		camera.position.x = originalCameraX - mouseXPercentage * 0.03;
-		camera.position.y = originalCameraY - mouseYPercentage * 0.01;
-        // camera.position.x = THREE.Math.clamp(camera.position.x, 0.4, 1.5);
-        //camera.position.y += ( - mouseY - camera.position.y ) * .05;
+			camera.position.x = originalCameraX - mouseXPercentage * 0.03;
+			camera.position.y = originalCameraY - mouseYPercentage * 0.01;
+	        // camera.position.x = THREE.Math.clamp(camera.position.x, 0.4, 1.5);
+	        //camera.position.y += ( - mouseY - camera.position.y ) * .05;
 
-        //camera.lookAt( scene.position );
-        //cameraCube.rotation.copy( camera.rotation );
+	        //camera.lookAt( scene.position );
+	        //cameraCube.rotation.copy( camera.rotation );
 
-        //particles.rotation.x += ( mouseX * .0005);
-        //particles.rotation.y += ( mouseY * .0005);
+	        //particles.rotation.x += ( mouseX * .0005);
+	        //particles.rotation.y += ( mouseY * .0005);
 
-        if ( mesh_solid !== undefined ) {
-			mesh_solid.rotation.y = time * 0.2;
-			mesh_solid.rotation.x = mouseYPercentage * 0.01;
+	        if ( mesh_solid !== undefined ) {
+				mesh_solid.rotation.y = time * 0.6;
+				mesh_solid.rotation.x = mouseYPercentage * 0.01;
+	        }
+
+			if ( potkuri !== undefined ) {
+				potkuri.rotation.z = time * 5.6;
+	        }
+
+	        requestAnimationFrame( render );
+	        renderer.render(scene, camera);
         }
-
-		if ( potkuri !== undefined ) {
-			potkuri.rotation.y = time * 0.2;
-        }
-		else {
-			mesh_solid.rotation.z = time * 0.2;
-		}
-
-        requestAnimationFrame( render );
-        renderer.render(scene, camera);
-        }
+		init();
         render();
     };
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js";
