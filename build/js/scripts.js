@@ -81,7 +81,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 						console.log(materials);
             //mesh = new THREE.Mesh(geometry, material);
             scene.add(potkuri);
-						for ( var i = 0; i < materials.length; i ++ )
+			for ( var i = 0; i < materials.length; i ++ )
             {
              var material = materials[i];
                 material.side = THREE.DoubleSide;
@@ -96,13 +96,13 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 		camera.position.y = originalCameraY;
 		camera.position.z = originalCameraZ;
 
-        var light = new THREE.AmbientLight( 0x777777 ); // soft white light
+        var light = new THREE.AmbientLight( 0xdddddd ); // soft white light
 				var sphere = new THREE.SphereGeometry( 0.01, 1, 1 );
         light1 = new THREE.PointLight( 0xffffff, 2, 3, 2 );
 				light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ) );
-				light1.castShadow = true;
-				light1.shadowDarkness = 0.5;
-				light1.shadowCameraVisible = true;
+				//light1.castShadow = true;
+				//light1.shadowDarkness = 0.5;
+				//light1.shadowCameraVisible = true;
         //light2 = new THREE.PointLight( 0xffffff, 2, 50 );
         //light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
         scene.add( light1 );
@@ -211,6 +211,13 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 			mesh_solid.rotation.y = time * 0.2;
 			mesh_solid.rotation.x = mouseYPercentage * 0.01;
         }
+
+		if ( potkuri !== undefined ) {
+			potkuri.rotation.y = time * 0.2;
+        }
+		else {
+			mesh_solid.rotation.z = time * 0.2;
+		}
 
         requestAnimationFrame( render );
         renderer.render(scene, camera);
