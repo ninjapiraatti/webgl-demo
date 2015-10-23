@@ -23,7 +23,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
     script.onload = function(){
 
 
-        var camera, scene, mesh_wire, mesh_solid, potkuri;
+        var camera, scene, mesh_wire, mesh_solid, potkuri, group;
         var mouseX = 0, mouseY = 0;
 
 		var windowHalfX = window.innerWidth / 2;
@@ -64,7 +64,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 							mesh_solid.castShadow = true;
 							mesh_solid.receiveShadow = true;
 	            //mesh = new THREE.Mesh(geometry, material);
-	            scene.add(mesh_solid);
+	            //scene.add(mesh_solid);
 				for ( var i = 0; i < materials.length; i ++ )
 	            {
 	             var material = materials[i];
@@ -83,7 +83,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 							potkuri.castShadow = true;
 							potkuri.receiveShadow = true;
 	            //mesh = new THREE.Mesh(geometry, material);
-	            scene.add(potkuri);
+	            //scene.add(potkuri);
 				for ( var i = 0; i < materials.length; i ++ )
 	            {
 	             var material = materials[i];
@@ -141,6 +141,13 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 			document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 			document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 
+			function addObjects(){
+			group = new THREE.Group();//create an empty container
+			group.add( mesh_solid );//add a mesh with geometry to it
+			group.add( potkuri );//add a mesh with geometry to it
+			scene.add( group );//when done, add the group to the scene
+			}
+			setTimeout(function(){addObjects();},1000);
 		}
 
         function onDocumentMouseMove( event ) {
@@ -202,9 +209,9 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 	        //particles.rotation.x += ( mouseX * .0005);
 	        //particles.rotation.y += ( mouseY * .0005);
 
-	        if ( mesh_solid !== undefined ) {
-				mesh_solid.rotation.y = time * 0.6;
-				mesh_solid.rotation.x = mouseYPercentage * 0.01;
+	        if ( group !== undefined ) {
+				group.rotation.y = time * 0.6;
+				group.rotation.x = mouseYPercentage * 0.01;
 	        }
 
 			if ( potkuri !== undefined ) {
