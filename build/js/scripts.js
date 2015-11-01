@@ -35,13 +35,13 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 		var smoothY = 0;
 
 		var originalCameraX = 0;
-		var originalCameraY = 1.5;
-		var originalCameraZ = 20;
+		var originalCameraY = 1;
+		var originalCameraZ = 5;
 
 		function init(){
 	        scene = new THREE.Scene();
 	        //camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 5 );
-	        camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 0.1, 35 );
+	        camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 0.1, 500 );
 	        //camera.position.z = 3200;
 	        renderer = new THREE.WebGLRenderer( {alpha: true });
 	        renderer.setSize( window.innerWidth, window.innerHeight );
@@ -95,10 +95,10 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 			camera.position.y = originalCameraY;
 			camera.position.z = originalCameraZ;
 
-	        var light = new THREE.AmbientLight( 0xdddddd ); // soft white light
+	        var light = new THREE.AmbientLight( 0xC9EAE7 ); // soft white light
 			var sphere = new THREE.SphereGeometry( 0.01, 1, 1 );
-	        light1 = new THREE.PointLight( 0xffffff, 2, 3, 2 );
-			light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ) );
+	        light1 = new THREE.PointLight( 0xffffff, 2, 4, 2 );
+			//light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ) );
 			//light1.castShadow = true;
 			//light1.shadowDarkness = 0.5;
 			//light1.shadowCameraVisible = true;
@@ -146,6 +146,9 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 			group.add( mesh_solid );//add a mesh with geometry to it
 			//potkuri.applyMatrix( new THREE.Matrix4().makeTranslation( 0, -0.2, 0 ) );
 			group.add( potkuri );//add a mesh with geometry to it
+			group.add( light1 );//add a mesh with geometry to it
+			potkuri.position.y = 0.25;
+			potkuri.rotation.x = -0.1;
 			scene.add( group );//when done, add the group to the scene
 			}
 			setTimeout(function(){addObjects();},1000);
@@ -199,20 +202,22 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 	        light2.position.z = Math.cos( time * 0.7 ) * 20;
 	        */
 
-			camera.position.x = originalCameraX - mouseXPercentage * 0.03;
-			camera.position.y = originalCameraY - mouseYPercentage * 0.01;
+			camera.position.x = originalCameraX - mouseXPercentage * 5;
+			camera.position.y = originalCameraY - mouseYPercentage * 3;
 	        // camera.position.x = THREE.Math.clamp(camera.position.x, 0.4, 1.5);
-	        //camera.position.y += ( - mouseY - camera.position.y ) * .05;
+			//camera.position.x += ( mouseX - camera.position.x ) * .05;
+			//camera.position.y += ( - mouseY - camera.position.y ) * .05;
 
-	        //camera.lookAt( scene.position );
+	        camera.lookAt( light1.position );
 	        //cameraCube.rotation.copy( camera.rotation );
 
 	        //particles.rotation.x += ( mouseX * .0005);
 	        //particles.rotation.y += ( mouseY * .0005);
 
 	        if ( group !== undefined ) {
-				group.rotation.y = time * 0.3;
-				group.rotation.x = mouseYPercentage * 0.01;
+				group.position.y = Math.sin(time * 0.7) / 8;
+				//group.rotation.y = time * 0.3;
+				//group.rotation.x = mouseYPercentage * 0.01;
 	        }
 
 			if ( potkuri !== undefined ) {
