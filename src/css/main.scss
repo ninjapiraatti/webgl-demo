@@ -8,3 +8,25 @@
 body{
   background-color: #223331;
 }
+
+.logo{
+    width: 300px;
+    margin: 0 auto;
+    display: block;
+    z-index: 2;
+    position: relative;
+    margin-top: 100px;
+    margin-bottom: 700px;
+}
+
+.webgl{
+    position: absolute;
+    top:0;
+    left: 0;
+    display: block;
+}
+
+.content{
+    height: 1500px;
+    background-color: #fff;
+}

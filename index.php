@@ -19,7 +19,12 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
+        <img class="logo" src="build/img/logo.png" alt="steam hellsinki" />
         <div class="webgl">
+
+        </div>
+
+        <div class="content">
 
         </div>
 

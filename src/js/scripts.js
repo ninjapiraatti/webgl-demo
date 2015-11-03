@@ -44,7 +44,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 	        camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 0.1, 500 );
 	        //camera.position.z = 3200;
 	        renderer = new THREE.WebGLRenderer( {alpha: true });
-	        renderer.setSize( window.innerWidth, window.innerHeight );
+	        renderer.setSize( window.innerWidth -20, window.innerHeight -20);
 			renderer.shadowMapEnabled = true;
 	        document.body.appendChild( renderer.domElement );
 	        document.querySelector(".webgl").appendChild( renderer.domElement );
