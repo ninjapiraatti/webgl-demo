@@ -43,7 +43,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 	        //camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 5 );
 	        camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 0.1, 500 );
 	        //camera.position.z = 3200;
-	        renderer = new THREE.WebGLRenderer( {alpha: true });
+	        renderer = new THREE.WebGLRenderer( {alpha: true, antialiasing: true });
 	        renderer.setSize( window.innerWidth -20, window.innerHeight -20);
 			renderer.shadowMapEnabled = true;
 	        document.body.appendChild( renderer.domElement );
@@ -95,7 +95,8 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 			camera.position.y = originalCameraY;
 			camera.position.z = originalCameraZ;
 
-	        var light = new THREE.AmbientLight( 0xC9EAE7 ); // soft white light
+	        //var light = new THREE.AmbientLight( 0xC9EAE7 ); // soft white light
+			var light = new THREE.HemisphereLight( 0xC9EAE7, 0xd83c0c, 1 ); // Hemisphere light
 			var sphere = new THREE.SphereGeometry( 0.01, 1, 1 );
 	        light1 = new THREE.PointLight( 0xffffff, 2, 4, 2 );
 			//light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ) );
