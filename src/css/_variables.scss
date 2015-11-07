@@ -5,3 +5,17 @@ $breakpoint-medium: 1100px;
 $breakpoint-large: 1300px;
 $breakpoint-xlarge: 1600px;
 $breakpoint-xxlarge: 2200px;
+
+@font-face {
+    font-family: 'altusserif';
+    src: url('../fonts/altus-serif-webfont.eot');
+    src: url('../fonts/altus-serif-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/altus-serif-webfont.woff') format('woff'),
+         url('../fonts/altus-serif-webfont.ttf') format('truetype'),
+         url('../fonts/altus-serif-webfont.svg#altusserif') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+$altus: 'altusserif';

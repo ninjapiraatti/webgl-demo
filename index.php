@@ -19,13 +19,20 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <img class="logo" src="build/img/logo.png" alt="steam hellsinki" />
+        <div class="nav">
+            <ul>
+                <li><a href="#">Kemistit</a></li>
+                <li><a href="#">Galleria</a></li>
+                <li><a href="#">Historiikki</a></li>
+                <li><a href="#">Serwiisit</a></li>
+                <li><a href="#">Tawoittaminen</a></li>
+            </ul>
+        </div>
         <div class="webgl">
 
         </div>
-
         <div class="content">
-
+            <img class="logo" src="build/img/logo2.png" alt="steam hellsinki" />
         </div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
