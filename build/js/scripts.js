@@ -36,9 +36,54 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 
 		var originalCameraX = 0;
 		var originalCameraY = 1;
-		var originalCameraZ = 5;
+		var originalCameraZ = 4;
 
 		function init(){
+
+			// Cube map
+			var txpx = new Image();
+		  	var txnx = new Image();
+		  	var txpy = new Image();
+		  	var txny = new Image();
+		  	var txpz = new Image();
+		  	var txnz = new Image();
+
+		  	txpx.crossOrigin = "anonymous";
+		  	txnx.crossOrigin = "anonymous";
+		  	txpy.crossOrigin = "anonymous";
+		  	txny.crossOrigin = "anonymous";
+		  	txpz.crossOrigin = "anonymous";
+		  	txnz.crossOrigin = "anonymous";
+
+		  	txpx.src = "build/img/px.jpg";
+		  	txnx.src = "build/img/nx.jpg";
+		  	txpy.src = "build/img/py.jpg";
+		  	txny.src = "build/img/ny.jpg";
+		  	txpz.src = "build/img/pz.jpg";
+		  	txnz.src = "build/img/nz.jpg";
+
+			var urls = [
+				txpx.src, txnx.src, txpy.src, txny.src, txpz.src, txnz.src
+			];
+
+			var textureCube = THREE.ImageUtils.loadTextureCube( urls );
+			var boxmaterial = new THREE.MeshLambertMaterial( { color: 0x00a0ff, envMap: textureCube } );
+
+			var shader = THREE.ShaderLib[ "cube" ];
+			shader.uniforms[ "tCube" ].value = textureCube;
+
+			var materialSkybox = new THREE.ShaderMaterial( {
+
+				fragmentShader: shader.fragmentShader,
+				vertexShader: shader.vertexShader,
+				uniforms: shader.uniforms,
+				depthWrite: false,
+				side: THREE.BackSide
+
+			} ),
+
+			skybox = new THREE.Mesh( new THREE.BoxGeometry( 30, 30, 30 ), materialSkybox );
+
 	        scene = new THREE.Scene();
 	        //camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 5 );
 	        camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 0.1, 500 );
@@ -96,7 +141,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 			camera.position.z = originalCameraZ;
 
 	        //var light = new THREE.AmbientLight( 0xC9EAE7 ); // soft white light
-			var light = new THREE.HemisphereLight( 0xC9EAE7, 0xd83c0c, 1 ); // Hemisphere light
+			var light = new THREE.HemisphereLight( 0xFFFB85, 0xd83c0c, 1 ); // Hemisphere light
 			var sphere = new THREE.SphereGeometry( 0.01, 1, 1 );
 	        light1 = new THREE.PointLight( 0xffffff, 2, 4, 2 );
 			//light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ) );
@@ -143,6 +188,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 			document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 
 			function addObjects(){
+			scene.add( skybox );
 			group = new THREE.Group();//create an empty container
 			group.add( mesh_solid );//add a mesh with geometry to it
 			//potkuri.applyMatrix( new THREE.Matrix4().makeTranslation( 0, -0.2, 0 ) );
@@ -151,6 +197,8 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 			potkuri.position.y = 0.25;
 			potkuri.rotation.x = -0.1;
 			scene.add( group );//when done, add the group to the scene
+			skybox.rotation.y = Math.PI / 3;
+			group.rotation.y = Math.PI / 2;
 			}
 			setTimeout(function(){addObjects();},1000);
 		}
@@ -203,7 +251,7 @@ if((browserSupportsWebGL) && (document.querySelector('.webgl') !== null) && (vie
 	        light2.position.z = Math.cos( time * 0.7 ) * 20;
 	        */
 
-			camera.position.x = originalCameraX - mouseXPercentage * 5;
+			camera.position.x = originalCameraX - mouseXPercentage * 7;
 			camera.position.y = originalCameraY - mouseYPercentage * 3;
 	        // camera.position.x = THREE.Math.clamp(camera.position.x, 0.4, 1.5);
 			//camera.position.x += ( mouseX - camera.position.x ) * .05;
